@@ -56,6 +56,7 @@ export default {
   methods: {
     tryLetter () {
       if (this.attempt.trim().length === 1 && this.attempt.trim().match(/[a-z]/i)) {
+        this.attempt = this.attempt.toLowerCase()
         if (this.graveyard.includes(this.attempt)) {
           this.$q.notify({
             type: 'negative',
