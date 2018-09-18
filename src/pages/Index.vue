@@ -22,20 +22,18 @@
       <q-input
         dark
         color="info"
-        float-label="Type a letter and hit enter"
+        float-label="Type a letter"
         v-model="attempt"
         @keyup.enter="tryLetter"
         :maxlength="1"
         :disable="disable"
       />
 
-      <q-btn color="info" label="Reset" @click="reset" class="q-mt-lg" />
+      <q-btn color="info" label="Go" @click="tryLetter" class="q-mt-lg q-mr-sm"/>
+      <q-btn color="info" outline label="Reset" @click="reset" class="q-mt-lg" />
     </div>
   </q-page>
 </template>
-
-<style>
-</style>
 
 <script>
 import words from 'assets/words.json'
@@ -103,6 +101,12 @@ export default {
             }
           }
         }
+      } else {
+        this.$q.notify({
+          type: 'negative',
+          message: 'Only letters allowed.',
+          position: 'top'
+        })
       }
     },
     reset () {
