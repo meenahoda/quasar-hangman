@@ -7,7 +7,7 @@
           <div class="q-display-1 text-white">
             <span v-for="(letter, idx) in revealed" :key="idx" class="q-mr-sm">
               <span v-if="letter === null">_</span>
-              <span v-else :class="missingIdxs.includes(idx) && 'text-red'">{{letter}}</span>
+              <span v-else :class="missingIdxs.includes(idx) ? 'text-red' : success ? 'text-green' : 'text-white'">{{letter}}</span>
             </span>
           </div>
         </div>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+// TODO: html maxlength does not work on mobile keyboard
 import words from 'assets/words.json'
 export default {
   name: 'PageIndex',
@@ -48,6 +49,7 @@ export default {
       attempts: 0,
       attempt: '',
       disable: false,
+      success: false,
       missingIdxs: []
     }
   },
@@ -82,6 +84,7 @@ export default {
                 position: 'top'
               })
               this.disable = true
+              this.success = true
             }
           } else {
             this.attempts++
@@ -117,6 +120,7 @@ export default {
       this.attempt = ''
       this.disable = false
       this.missingIdxs = []
+      this.success = false
     }
   },
   computed: {
