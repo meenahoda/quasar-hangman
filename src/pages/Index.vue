@@ -4,6 +4,7 @@
     <div class="q-display-1 text-white text-center">
       <span v-for="(letter, idx) in revealed" :key="idx" class="q-mr-sm">
         <span v-if="letter === null">_</span>
+        <span v-else-if="letter === '-'" class="q-mr-md"></span>
         <span v-else :class="missingIdxs.includes(idx) ? 'text-red' : success ? 'text-green' : 'text-white'">{{letter}}</span>
       </span>
     </div>
@@ -16,7 +17,7 @@
         :key="`char-${id}`"
         class="col-sm-1"
       >
-        <q-btn :color="graveyard.includes(char) ? '' : 'secondary'" class="q-mt-sm q-mr-sm" :label="char" @click="tryLetter(char)" :disable="graveyard.includes(char) || disable || succcess" />
+        <q-btn :color="graveyard.includes(char) ? '' : 'secondary'" class="q-mt-sm q-mr-sm" :label="char" @click="tryLetter(char)" :disable="graveyard.includes(char) || disable || success" />
       </div>
     </div>
 
@@ -119,7 +120,7 @@ export default {
   },
   mounted () {
     this.chosenWord = words[Math.floor(Math.random() * words.length)]
-    this.revealed = new Array(this.chosenWord.length).fill(null)
+    this.revealed = this.chosenWord.split('').map(letter => letter === '-' ? '-' : null)
   }
 }
 </script>
