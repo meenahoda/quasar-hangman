@@ -69,7 +69,7 @@ export default {
           .forEach((letter, idx) => {
             if (letter === char) this.revealed[idx] = char
           })
-        
+
         let success = true
         this.revealed.forEach(letter => {
           if (letter === null) success = false
@@ -79,7 +79,7 @@ export default {
           this.$q.notify({
             type: 'positive',
             message: 'Success!',
-            position: 'top'
+            position: 'bottom'
           })
           this.disable = true
           this.success = true
@@ -90,7 +90,7 @@ export default {
           this.$q.notify({
             type: 'negative',
             message: 'Game over!',
-            position: 'top'
+            position: 'bottom'
           })
           this.disable = true
           this.revealed.forEach((letter, idx) => {
