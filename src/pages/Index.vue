@@ -28,7 +28,8 @@
     </div>
 
     <div class="text-center text-white q-mt-xl">
-      Win streak: {{streak}}
+      <span class="q-mr-md">Highest Score: {{highscore}}</span>
+      <span class="q-ml-md">Win streak: {{streak}}</span>
     </div>
 
     <div class="text-center q-mt-xl">
@@ -68,7 +69,8 @@ export default {
       disable: false,
       success: false,
       missingIdxs: [],
-      streak: 0
+      streak: 0,
+      highscore: 0
     }
   },
   methods: {
@@ -96,6 +98,10 @@ export default {
           this.disable = true
           this.success = true
           this.streak++
+          if (this.streak > this.highscore) {
+            localStorage.setItem('hangman-highscore', this.streak)
+            this.highscore = localStorage.getItem('hangman-highscore')
+          }
         }
       } else {
         this.attempts++
@@ -134,6 +140,10 @@ export default {
   mounted () {
     this.chosenWord = words[Math.floor(Math.random() * words.length)]
     this.revealed = this.chosenWord.split('').map(letter => letter === '-' ? '-' : null)
+
+    if (localStorage.getItem('hangman-highscore')) {
+      this.highscore = localStorage.getItem('hangman-highscore')
+    }
   }
 }
 </script>
