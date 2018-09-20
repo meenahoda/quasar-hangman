@@ -17,8 +17,18 @@
         :key="`char-${id}`"
         class="col-sm-1"
       >
-        <q-btn :color="graveyard.includes(char) ? '' : 'secondary'" class="q-mt-sm q-mr-sm" :label="char" @click="tryLetter(char)" :disable="graveyard.includes(char) || disable || success" />
+        <q-btn
+          :color="graveyard.includes(char) ? '' : 'secondary'"
+          class="q-mt-md q-mr-sm"
+          :label="char"
+          @click="tryLetter(char)"
+          :disable="graveyard.includes(char) || disable || success"
+        />
       </div>
+    </div>
+
+    <div class="text-center text-white q-mt-xl">
+      Win streak: {{streak}}
     </div>
 
     <div class="text-center q-mt-xl">
@@ -57,7 +67,8 @@ export default {
       attempts: 0,
       disable: false,
       success: false,
-      missingIdxs: []
+      missingIdxs: [],
+      streak: 0
     }
   },
   methods: {
@@ -84,6 +95,7 @@ export default {
           })
           this.disable = true
           this.success = true
+          this.streak++
         }
       } else {
         this.attempts++
@@ -93,6 +105,7 @@ export default {
             message: 'Game over!',
             position: 'bottom'
           })
+          this.streak = 0
           this.disable = true
           this.revealed.forEach((letter, idx) => {
             if (letter === null) this.missingIdxs.push(idx)
