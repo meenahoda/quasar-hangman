@@ -33,7 +33,7 @@
     </div>
 
     <div class="text-center q-mt-xl">
-      <q-btn color="negative" outline label="Reset" @click="reset" />
+      <q-btn color="negative" label="Start Again" @click="reset" />
     </div>
   </q-page>
 </template>
