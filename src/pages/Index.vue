@@ -124,7 +124,7 @@ export default {
     },
     reset () {
       this.chosenWord = words[Math.floor(Math.random() * words.length)]
-      this.revealed = new Array(this.chosenWord.length).fill(null)
+      this.revealed = this.chosenWord.split('').map(letter => letter === '-' ? '-' : null)
       this.graveyard = []
       this.attempts = 0
       this.disable = false
