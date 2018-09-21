@@ -123,13 +123,19 @@ export default {
       }
     },
     reset () {
-      this.chosenWord = words[Math.floor(Math.random() * words.length)]
-      this.revealed = this.chosenWord.split('').map(letter => letter === '-' ? '-' : null)
+      if (!this.success) {
+        this.streak = 0
+      }
+      this.newWord()
       this.graveyard = []
       this.attempts = 0
       this.disable = false
       this.missingIdxs = []
       this.success = false
+    },
+    newWord () {
+      this.chosenWord = words[Math.floor(Math.random() * words.length)]
+      this.revealed = this.chosenWord.split('').map(letter => letter === '-' ? '-' : null)
     }
   },
   computed: {
@@ -138,8 +144,7 @@ export default {
     }
   },
   mounted () {
-    this.chosenWord = words[Math.floor(Math.random() * words.length)]
-    this.revealed = this.chosenWord.split('').map(letter => letter === '-' ? '-' : null)
+    this.newWord()
 
     if (localStorage.getItem('hangman-highscore')) {
       this.highscore = localStorage.getItem('hangman-highscore')
