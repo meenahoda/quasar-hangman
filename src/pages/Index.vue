@@ -1,40 +1,41 @@
 <template>
-  <q-page padding>
-
-    <div class="q-display-1 text-white text-center">
-      <span v-for="(letter, idx) in revealed" :key="idx" class="q-mr-sm">
-        <span v-if="letter === null">_</span>
-        <span v-else-if="letter === '-'" class="q-mr-md"></span>
-        <span v-else :class="missingIdxs.includes(idx) ? 'text-red' : success ? 'text-green' : 'text-white'">{{letter}}</span>
-      </span>
-    </div>
-
-    <div class="q-subheading q-mt-xl text-white text-center">{{maxAttempts - attempts}} attempts left</div>
-
-    <div class="row justify-center q-mt-xl" id="keyboard">
-      <div
-        v-for="(char, id) in alphabet"
-        :key="`char-${id}`"
-        class="col-sm-1"
-      >
-        <q-btn
-          :color="graveyard.includes(char) ? '' : 'secondary'"
-          class="q-mt-md q-mr-sm"
-          :label="char"
-          @click="tryLetter(char)"
-          :disable="graveyard.includes(char) || disable || success"
-        />
+  <q-page class="flex flex-center">
+    <q-card style="width: 90vw;">
+      <div class="q-display-1 text-white text-center">
+        <span v-for="(letter, idx) in revealed" :key="idx" class="q-mr-sm">
+          <span v-if="letter === null">_</span>
+          <span v-else-if="letter === '-'" class="q-mr-md"></span>
+          <span v-else :class="missingIdxs.includes(idx) ? 'text-red' : success ? 'text-green' : 'text-white'">{{letter}}</span>
+        </span>
       </div>
-    </div>
 
-    <div class="text-center text-white q-mt-xl">
-      <span class="q-mr-md">Highest Score: {{highscore}}</span>
-      <span class="q-ml-md">Win streak: {{streak}}</span>
-    </div>
+      <div class="q-subheading q-mt-xl text-white text-center">{{maxAttempts - attempts}} attempts left</div>
 
-    <div class="text-center q-mt-xl">
-      <q-btn color="negative" label="Start Again" @click="reset" />
-    </div>
+      <div class="row justify-center q-mt-xl" id="keyboard">
+        <div
+          v-for="(char, id) in alphabet"
+          :key="`char-${id}`"
+          class="col-sm-1"
+        >
+          <q-btn
+            :color="graveyard.includes(char) ? '' : 'secondary'"
+            class="q-mt-md q-mr-sm"
+            :label="char"
+            @click="tryLetter(char)"
+            :disable="graveyard.includes(char) || disable || success"
+          />
+        </div>
+      </div>
+
+      <div class="text-center text-white q-mt-xl">
+        <span class="q-mr-md">Highest Score: {{highscore}}</span>
+        <span class="q-ml-md">Win streak: {{streak}}</span>
+      </div>
+
+      <div class="text-center q-mt-xl">
+        <q-btn color="negative" label="Start Again" @click="reset" />
+      </div>
+    </q-card>
   </q-page>
 </template>
 
