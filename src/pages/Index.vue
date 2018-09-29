@@ -27,9 +27,14 @@
         </div>
       </div>
 
-      <div class="text-center text-white q-mt-xl">
-        <span class="q-mr-md">Highest Score: {{highscore}}</span>
-        <span class="q-ml-md">Win streak: {{streak}}</span>
+      <div class="text-center q-mt-xl">
+        <q-chip color="tertiary" class="q-mr-md text-weight-thin">
+          High score: {{highscore}}
+        </q-chip>
+
+        <q-chip color="tertiary" class="text-weight-thin">
+          Win streak: {{streak}}
+        </q-chip>
       </div>
 
       <div class="text-center q-mt-xl">
@@ -100,6 +105,7 @@ export default {
           this.success = true
           this.streak++
           if (this.streak > this.highscore) {
+            this.$q.notify('You beat your highscore!')
             localStorage.setItem('hangman-highscore', this.streak)
             this.highscore = localStorage.getItem('hangman-highscore')
           }
